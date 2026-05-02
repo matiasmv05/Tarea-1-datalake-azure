@@ -1,0 +1,15 @@
+{
+	"name": "df-ucb-sisger-datalake",
+	"properties": {
+		"trustModeClaimForMi": {
+			"value": "Enabled",
+			"editable": true
+		}
+	},
+	"location": "centralus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "788e8fe9-6ffc-4048-8800-b3e71d398f61",
+		"tenantId": "cc28633f-12b8-46cb-bc15-951dae239b4d"
+	}
+}
