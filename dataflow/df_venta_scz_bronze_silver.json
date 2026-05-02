@@ -15,7 +15,15 @@
 					"name": "source1"
 				}
 			],
-			"sinks": [],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ventas_scz_limpio_csv",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
 			"transformations": [
 				{
 					"name": "derivedColumn1"
@@ -79,7 +87,7 @@
 				"    toDate(fecha, 'MMMM dd, yyyy'),\r",
 				"    toDate(fecha, 'dd \\'de\\' MMMM \\'de\\' yyyy')\r",
 				")) ~> derivedColumn5",
-				"derivedColumn5 filter(cantidad>0 && !isNull(precio_unitario) && !isNull(fecha) ) ~> filter1",
+				"derivedColumn5 filter(cantidad>0 && !isNull(precio_unitario) && !isNull(fecha) && !isNull(metodo_pago)  && !isNull(cliente_email) ) ~> filter1",
 				"filter1 select(mapColumn(",
 				"          id_venta,",
 				"          fecha,",
@@ -94,7 +102,16 @@
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"select1 derive(canal = \"Sucursal\") ~> derivedColumn6"
+				"select1 derive(canal = \"Sucursal\") ~> derivedColumn6",
+				"derivedColumn6 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['ventas_scz_limpio.csv'],",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sink1"
 			]
 		}
 	}
