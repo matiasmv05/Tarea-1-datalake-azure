@@ -74,7 +74,7 @@
 				"          cliente_email = trim(cliente_email),",
 				"          cantidad = trim(cantidad)) ~> derivedColumn1",
 				"derivedColumn1 derive(producto = initCap(regexReplace(producto,'\\\\s+',' '))) ~> derivedColumn2",
-				"derivedColumn2 derive(sucursal = iif(in (['Sta Cruz','santa cruz','SC','SCZ','Santa Cruz','Sta. Cruz','SANTA CRUZ'],sucursal),'Santa Cruz',sucursal)) ~> derivedColumn3",
+				"derivedColumn2 derive(sucursal = iif(in(['Sta Cruz','santa cruz','SC','SCZ','Santa Cruz','Sta. Cruz','SANTA CRUZ'],sucursal),'Santa Cruz',sucursal)) ~> derivedColumn3",
 				"derivedColumn3 derive(precio_unitario = toFloat(regexReplace(toString(precio_unitario),'[^0-9.]',''))\r",
 				",",
 				"          cantidad = toInteger(cantidad)) ~> derivedColumn4",
