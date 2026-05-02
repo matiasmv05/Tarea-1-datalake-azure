@@ -1,5 +1,5 @@
 {
-	"name": "limpieza_ventas_lpz",
+	"name": "limpieza_ventas_online",
 	"properties": {
 		"activities": [
 			{
@@ -16,7 +16,7 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataflow": {
-						"referenceName": "df_venta_lapaz_bronze_silver",
+						"referenceName": "df_ventas_online_bronze_silver",
 						"type": "DataFlowReference"
 					},
 					"compute": {
