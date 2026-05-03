@@ -1,0 +1,17 @@
+{
+	"name": "TriggerVentas",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Started",
+		"pipelines": [],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Month",
+				"interval": 1,
+				"startTime": "2026-05-02T02:49:00",
+				"timeZone": "SA Western Standard Time"
+			}
+		}
+	}
+}
