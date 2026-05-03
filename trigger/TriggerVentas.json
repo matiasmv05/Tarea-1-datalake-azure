@@ -21,6 +21,12 @@
 					"referenceName": "limpieza_ventas_online",
 					"type": "PipelineReference"
 				}
+			},
+			{
+				"pipelineReference": {
+					"referenceName": "limpieza_ventas_lpz",
+					"type": "PipelineReference"
+				}
 			}
 		],
 		"type": "ScheduleTrigger",
