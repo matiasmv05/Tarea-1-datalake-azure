@@ -2,7 +2,7 @@
 	"name": "TriggerVentas",
 	"properties": {
 		"annotations": [],
-		"runtimeState": "Stopped",
+		"runtimeState": "Started",
 		"pipelines": [],
 		"type": "ScheduleTrigger",
 		"typeProperties": {
@@ -10,7 +10,18 @@
 				"frequency": "Month",
 				"interval": 1,
 				"startTime": "2026-05-02T02:49:00",
-				"timeZone": "SA Western Standard Time"
+				"timeZone": "SA Western Standard Time",
+				"schedule": {
+					"minutes": [
+						0
+					],
+					"hours": [
+						8
+					],
+					"monthDays": [
+						1
+					]
+				}
 			}
 		}
 	}
