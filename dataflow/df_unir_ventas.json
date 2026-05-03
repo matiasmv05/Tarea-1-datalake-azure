@@ -40,10 +40,10 @@
 					"name": "union1"
 				},
 				{
-					"name": "union2"
+					"name": "select1"
 				},
 				{
-					"name": "select1"
+					"name": "union2"
 				}
 			],
 			"scriptLines": [
@@ -97,25 +97,24 @@
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> source3",
 				"source1, source2 union(byName: true)~> union1",
-				"union1, source3 union(byName: true)~> union2",
-				"union2 select(mapColumn(",
+				"source3 select(mapColumn(",
 				"          id_venta,",
 				"          fecha,",
 				"          producto,",
 				"          cantidad,",
 				"          precio_unitario,",
-				"          sucursal,",
-				"          vendedor,",
 				"          cliente_nombre,",
 				"          cliente_email,",
+				"          sucursal,",
 				"          metodo_pago,",
 				"          canal",
 				"     ),",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> select1",
-				"select1 sink(allowSchemaDrift: true,",
+				"select1, union1 union(byName: true)~> union2",
+				"union2 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     partitionFileNames:['ventas_limpio_csv'],",
+				"     partitionFileNames:['ventas_limpio.csv'],",
 				"     umask: 0022,",
 				"     preCommands: [],",
 				"     postCommands: [],",
