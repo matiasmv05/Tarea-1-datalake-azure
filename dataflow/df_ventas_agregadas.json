@@ -1,0 +1,69 @@
+{
+	"name": "df_ventas_agregadas",
+	"properties": {
+		"folder": {
+			"name": "gold"
+		},
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "limpio_ventas",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "ventas_agregadas_csv",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "aggregate1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          id_venta as string,",
+				"          fecha as string,",
+				"          producto as string,",
+				"          cantidad as string,",
+				"          precio_unitario as string,",
+				"          cliente_nombre as string,",
+				"          cliente_email as string,",
+				"          sucursal as string,",
+				"          metodo_pago as string,",
+				"          canal as string,",
+				"          vendedor as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 aggregate(groupBy(sucursal,",
+				"          canal,",
+				"          producto),",
+				"     total_ingresos = round(sum(toDouble(precio_unitario) * toDouble(cantidad)), 2),",
+				"          cantidad_vendida = sum(toInteger(cantidad)),",
+				"          num_transacciones = count(1),",
+				"          ticket_promedio = avg(toDouble(precio_unitario)),",
+				"          ingreso_promedio_transacciones = sum(toDouble(precio_unitario) * toDouble(cantidad)) / count(1)) ~> aggregate1",
+				"aggregate1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['ventas_agregadas.csv'],",
+				"     umask: 0022,",
+				"     preCommands: [],",
+				"     postCommands: [],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sink1"
+			]
+		}
+	}
+}

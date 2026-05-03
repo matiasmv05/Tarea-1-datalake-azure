@@ -1,6 +1,9 @@
 {
 	"name": "df_unir_ventas",
 	"properties": {
+		"folder": {
+			"name": "silver"
+		},
 		"type": "MappingDataFlow",
 		"typeProperties": {
 			"sources": [
